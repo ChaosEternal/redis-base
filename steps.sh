@@ -6,7 +6,11 @@ cd ~/workspace/redis2-release
 cp -r ~/workspace/redis-base/* ./
 ~/workspace/bosh-generator/init-package.sh ./ 
 ~/workspace/bosh-generator/init-job.sh ./ 
+./update-release.sh
 ~/workspace/bosh-generator/init-manifest.sh ./ 
-~/workspace/bosh-generator/tile.sh ./
-~/workspace/bosh-generator/init-manifest.sh ./ odb
-~/workspace/bosh-generator/tile.sh ./
+bosh2 -e vbox update-cloud-config ./manifests/bosh_lite_cloud_config.yml
+bosh2 -e vbox -d redis-deployment deploy ./manifests/bosh_lite_manifest.yml
+
+#~/workspace/bosh-generator/tile.sh ./
+#~/workspace/bosh-generator/init-manifest.sh ./ odb
+#~/workspace/bosh-generator/tile.sh ./
